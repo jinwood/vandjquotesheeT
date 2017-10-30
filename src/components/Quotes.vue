@@ -1,39 +1,36 @@
-<<template>
-    <div>
-      <Quote v-for="item in quotes"
-            v-bind:data="item"
-            v-bind:key="item.date">
-      </Quote>
+<template>
+  <div>
+    <div v-for="item in quotes">
+      <QuoteItem v-bind:quoteData="item">
+      </QuoteItem>
     </div>
+  </div>
 </template>
 
 <script>
-import Quote from '../components/Quote'
+import QuoteItem from '../components/QuoteItem'
 import axios from 'axios'
 
 export default {
   name: 'Quotes',
-  components: Quote,
-  computed: {
-    quotes: {
-      get: function () {
-        this.getQuote()
-        return this
-      },
-      set: function (newValue) {
-        this.push(newValue)
-      }
+  components: {QuoteItem: QuoteItem},
+  data: function () {
+    return {
+      quotes: []
     }
+  },
+  created: function () {
+    this.getQuotes()
   },
   methods: {
     getQuotes () {
+      var vm = this
       console.log('in get quotes')
-      var that = this
       axios
         .get('http://localhost:3000/quotes')
           .then(function (result) {
-            console.log(that)
-            console.log(that.quotes)
+            console.log('in result')
+            vm.quotes = result.data.quotes
           })
     }
   }
