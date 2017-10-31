@@ -1,11 +1,18 @@
 var express = require('express');
 var app = express();
+var fs = require('fs');
 
 app.use(function(req, res, next){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+app.post('/quote/', function(req, res, data){
+    fs.writeFile('quote.json', data, function(err){
+        console.log('error occured saving to file - ' + err);
+    });
+})
 
 app.get('/quotes/', function(req, res){
     res.json({
