@@ -1,12 +1,19 @@
 <template>
-    <div>
-        {{quoteData.date}}
+    <b-row>
+      <b-col></b-col>
+      <b-col cols="7">
+        <b-card>
+          {{quoteData.date}}
 
-        {{quoteData.rating}}
+          {{quoteData.rating}}
 
-        <Conversation v-bind:conversation="quoteData.conversation">
-        </Conversation>
-    </div>
+          <Conversation v-bind:conversation="quoteData.conversation">
+          </Conversation>
+        </b-card>
+      </b-col>
+      <b-col></b-col>
+
+    </b-row>
 </template>
 
 <script>
@@ -20,4 +27,7 @@ export default {
 </script>
 
 <style scoped>
+  .card{
+    margin-bottom: 10px;
+  }
 </style>

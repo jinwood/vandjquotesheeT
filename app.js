@@ -11,6 +11,7 @@ app.get('/quotes/', function(req, res){
     res.json({
         quotes: [
             {
+                id: 1,
                 date:"01/01/2017",
                 rating: 5,
                 conversation:[
@@ -25,8 +26,9 @@ app.get('/quotes/', function(req, res){
                 ]
             },
             {
+                id: 2,
                 date: "02/01/2017",
-                raiting: 4,
+                rating: 4,
                 conversation:[
                     {
                         person: "J",

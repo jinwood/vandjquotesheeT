@@ -1,8 +1,7 @@
 <template>
   <div>
     <div v-for="item in conversation">
-      <p>{{item.person}}</p>
-      <p>{{item.message}}</p>
+      <p>{{item.person}} - {{item.message}}</p>
     </div>
   </div>
 </template>

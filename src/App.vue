@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <b-container id="app">
     <img src="./assets/logo.png">
     <home/>
     <quotes/>
-  </div>
+  </b-container>
 </template>
 
 <script>

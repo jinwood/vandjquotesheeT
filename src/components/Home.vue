@@ -1,7 +1,11 @@
 <template>
-  <div class="">
-    <h1>{{ msg }}</h1>
-  </div>
+  <b-row class="">
+    <b-col></b-col>
+    <b-col>
+      <h1>{{ msg }}</h1>
+    </b-col>
+    <b-col></b-col>
+  </b-row>
 </template>
 
 <script>
