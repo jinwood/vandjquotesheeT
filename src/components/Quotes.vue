@@ -2,8 +2,12 @@
   <div>
     <b-button :variant="'link'"
       v-on:click="revealAddQuote">+</b-button>
-    <AddQuote>
-    </AddQuote>
+    <div v-if="showNewQuote">
+      <NewQuote></NewQuote>
+    </div>
+    
+
+
     <transition-group name="list" tag="p">
       <div v-for="item in quotes" v-bind:key="item.id">
         <QuoteItem v-bind:quoteData="item">
@@ -15,18 +19,19 @@
 
 <script>
 import QuoteItem from '../components/QuoteItem'
-import AddQuote from '../components/AddQuote'
+import NewQuote from '../components/NewQuote'
 import axios from 'axios'
 
 export default {
   name: 'Quotes',
   components: {
     QuoteItem: QuoteItem,
-    AddQuote: AddQuote
+    NewQuote: NewQuote
   },
   data: function () {
     return {
-      quotes: []
+      quotes: [],
+      showNewQuote: false
     }
   },
   created: function () {
@@ -34,6 +39,7 @@ export default {
   },
   methods: {
     revealAddQuote () {
+      this.showNewQuote = !this.showNewQuote
     },
     getQuotes () {
       var vm = this
@@ -42,6 +48,7 @@ export default {
         .get('http://localhost:3000/quotes')
           .then(function (result) {
             console.log('in result')
+            debugger
             vm.quotes = result.data.quotes
           })
     }
