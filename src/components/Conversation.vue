@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="item in conversation">
-      <p>{{item.person}} - {{item.message}}</p>
+    <div v-for="item in conversation" v-bind:key="item.text">
+      <p>{{item.person}} - {{item.text}}</p>
     </div>
   </div>
 </template>

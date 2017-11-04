@@ -7,9 +7,9 @@
           <p>New Quote</p>
           <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
           <b-button :variant="'button'" v-on:click="save">Save</b-button>
-          <div v-for="item in newQuote.conversation">
-            <input placeholder="Person" v-model="item.conversation.person">
-            <input placeholder="They said..." v-model="item.conversation.text">
+          <div v-for="item in newQuote.conversation" v-bind:key="item.text">
+            <input placeholder="Person" v-model="item.person">
+            <input placeholder="They said..." v-model="item.text">
           </div>
         </b-card>
       </b-col>
@@ -35,10 +35,9 @@
     methods: {
       addConversation: function () {
         this._data.newQuote.conversation.push({
-          conversation: {
-            person: '',
-            text: ''
-          }})
+          person: '',
+          text: ''
+        })
       },
       getDate: function () {
         var today = new Date()

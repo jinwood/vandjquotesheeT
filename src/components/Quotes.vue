@@ -7,7 +7,7 @@
     </div>
     
 
-
+    <p>{{quotes.length}}</p>
     <transition-group name="list" tag="p">
       <div v-for="item in quotes" v-bind:key="item.id">
         <QuoteItem v-bind:quoteData="item">
