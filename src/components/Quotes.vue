@@ -1,19 +1,24 @@
 <template>
   <div>
-    <b-button :variant="'link'"
-      v-on:click="revealAddQuote">+</b-button>
-    <div v-if="showNewQuote">
-      <NewQuote></NewQuote>
-    </div>
-    
-
-    <p>{{quotes.length}}</p>
-    <transition-group name="list" tag="p">
-      <div v-for="item in quotes" v-bind:key="item.id">
-        <QuoteItem v-bind:quoteData="item">
-        </QuoteItem>
-      </div>
-  </transition-group>
+    <b-row class="text-center">
+      <b-col></b-col>
+      <b-col cols="8">
+        <b-button :variant="'link'" v-on:click="revealAddQuote">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </b-button>
+        <div v-if="showNewQuote">
+          <NewQuote></NewQuote>
+        </div>
+        <p>{{quotes.length}}</p>
+        <transition-group name="list" tag="p">
+          <div v-for="item in quotes" v-bind:key="item.id">
+            <QuoteItem v-bind:quoteData="item">
+            </QuoteItem>
+          </div>
+        </transition-group>
+      </b-col>
+      <b-col></b-col>
+    </b-row>
   </div>
 </template>
 
@@ -48,7 +53,6 @@ export default {
         .get('http://localhost:3000/quotes')
           .then(function (result) {
             console.log('in result')
-            debugger
             vm.quotes = result.data.quotes
           })
     }

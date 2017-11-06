@@ -2,7 +2,8 @@
   <b-row class="">
     <b-col></b-col>
     <b-col>
-      <h1>{{ msg }}</h1>
+      <h1>V & J</h1>
+      <h1>Quote SheeT</h1>
     </b-col>
     <b-col></b-col>
   </b-row>
@@ -10,12 +11,7 @@
 
 <script>
 export default {
-  name: 'Home',
-  data () {
-    return {
-      msg: 'V and J Quote sheeT'
-    }
-  }
+  name: 'Home'
 }
 </script>
 

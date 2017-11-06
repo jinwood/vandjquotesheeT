@@ -21,7 +21,9 @@ app.post('/quote/', function(req, res, data){
             return;
         }
         var existingQuotes = JSON.parse(data);
-        var lastId = existingQuotes.quotes.length;
+        var lastId = existingQuotes.quotes === undefined ?
+            0 :
+            existingQuotes.quotes.length;
         newQuote.id = lastId + 1;
         existingQuotes.quotes.push(newQuote);
 
