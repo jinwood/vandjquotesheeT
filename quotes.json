@@ -3,7 +3,7 @@
         {
             "id": 1,
             "date": "4/11/2017",
-            "rating": 0,
+            "rating": 5,
             "conversation": [
                 {
                     "person": "J",
@@ -18,19 +18,23 @@
         {
             "id": 2,
             "date": "4/11/2017",
-            "rating": 0,
+            "rating": 4,
             "conversation": [
                 {
-                    "person": "Test",
-                    "text": "Abc12344"
+                    "person": "V",
+                    "text": "I'm looking for some artwork for my room"
                 },
                 {
-                    "person": "Test2",
-                    "text": "ri peiowvm bn"
+                    "person": "J",
+                    "text": "I have a print of Monet's bridge if you'd like?"
                 },
                 {
-                    "person": "Test",
-                    "text": "h4 t343ger"
+                    "person": "V",
+                    "text": "I don't like prints"
+                },
+                {
+                    "person": "J",
+                    "text": "Alright snobby."
                 }
             ],
             "Id": 2
