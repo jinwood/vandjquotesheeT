@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in conversation" v-bind:key="item.text">
+    <div v-for="item in conversation" v-bind:key="item.person">
       <p>{{item.person}} - {{item.text}}</p>
     </div>
   </div>

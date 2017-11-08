@@ -8,12 +8,16 @@
     </div> -->
     <div>
     <b-row class="text-center">
-      <b-button :variant="'link'" v-on:click="revealAddQuote">
+      <b-col md="3" lg="4"></b-col>
+      <b-col md="3" lg="4">
+        <b-button :variant="'link'" v-on:click="revealAddQuote">
           <i class="fa fa-plus" aria-hidden="true"></i>
         </b-button>
         <div v-if="showNewQuote">
           <NewQuote></NewQuote>
         </div>
+      </b-col>
+      <b-col md="3" lg="4"></b-col>
     </b-row>
     <b-row class="text-center">
       <b-col md="3" lg="4"></b-col>
