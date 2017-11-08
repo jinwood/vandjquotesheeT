@@ -1,27 +1,20 @@
 <template>
-<!-- <div>
-    <b-row>
-        <b-col sm>col-sm</b-col>
-        <b-col sm>col-sm</b-col>
-        <b-col sm>col-sm</b-col>
-    </b-row>
-    </div> -->
     <div>
     <b-row class="text-center">
       <b-col md="3" lg="4"></b-col>
       <b-col md="3" lg="4">
-        <b-button :variant="'link'" v-on:click="revealAddQuote">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-        </b-button>
-        <div v-if="showNewQuote">
-          <NewQuote></NewQuote>
-        </div>
       </b-col>
       <b-col md="3" lg="4"></b-col>
     </b-row>
     <b-row class="text-center">
       <b-col md="3" lg="4"></b-col>
       <b-col order-sm="" md="6" lg="4">
+        <b-button :variant="'link'" v-on:click="revealAddQuote">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </b-button>
+        <div v-if="showNewQuote">
+          <NewQuote></NewQuote>
+        </div>
         <transition-group name="list" tag="p">
           <div v-for="item in quotes" v-bind:key="item.id">
             <QuoteItem v-bind:quoteData="item">

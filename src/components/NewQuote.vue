@@ -1,21 +1,14 @@
 <template>
-  <div>
-    <b-row>
-      <b-col></b-col>
-      <b-col>
-        <b-card>
-          <p>New Quote</p>
-          <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
-          <b-button :variant="'button'" v-on:click="save">Save</b-button>
-          <div v-for="item in newQuote.conversation" v-bind:key="item.id">
-            <input placeholder="Person" v-model="item.person">
-            <input placeholder="They said..." v-model="item.text">
-          </div>
-        </b-card>
-      </b-col>
-      <b-col></b-col>
-    </b-row>
-  </div>
+  <b-card>
+    <p>New Quote</p>
+    <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
+    <b-button :variant="'button'" v-on:click="save">Save</b-button>
+    <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>
+    <div v-for="item in newQuote.conversation" v-bind:key="item.id">
+      <b-form-input placeholder="Person" v-model="item.person" />
+      <b-form-input placeholder="They said..." v-model="item.text" />
+    </div>
+  </b-card>
 </template>
 
 <script>
@@ -62,5 +55,8 @@
 <style scoped>
   .card{
     margin-bottom: 10px;
+  }
+  .rating-input{
+    margin-top: 15px;
   }
 </style>
