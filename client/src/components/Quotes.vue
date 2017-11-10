@@ -55,7 +55,7 @@ export default {
       var vm = this
       console.log('in get quotes')
       axios
-        .get('http://localhost:3000/quotes')
+        .get('http://quotesheet-server.azurewebsites.net/quotes')
           .then(function (result) {
             console.log('in result')
             vm.quotes = result.data.quotes

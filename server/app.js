@@ -42,6 +42,6 @@ app.get('/quotes/', function(req, res){
     res.json(file);
 });
 
-app.listen(3000, function(){
-    console.log("Listining on port 3000");
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Listining on port " + process.env.PORT || 3000);
 })

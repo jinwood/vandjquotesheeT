@@ -43,7 +43,7 @@
         return dd + '/' + mm + '/' + yyyy
       },
       save: function () {
-        axios.post('http://localhost:3000/quote', this._data.newQuote)
+        axios.post('http://quotesheet-server.azurewebsites.net/quote', this._data.newQuote)
           .then(function () {
             console.log('posted quote')
           })
