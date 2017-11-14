@@ -31,6 +31,7 @@
 import QuoteItem from '../components/QuoteItem'
 import NewQuote from '../components/NewQuote'
 import axios from 'axios'
+import Constants from '../constants'
 
 export default {
   name: 'Quotes',
@@ -55,7 +56,7 @@ export default {
       var vm = this
       console.log('in get quotes')
       axios
-        .get('http://quotesheet-server.azurewebsites.net/quotes')
+        .get(Constants.ApiBaseUrl + '/quotes')
           .then(function (result) {
             console.log('in result')
             vm.quotes = result.data.quotes

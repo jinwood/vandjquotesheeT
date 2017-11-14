@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import Constants from '../constants'
   import axios from 'axios'
 
   export default {
@@ -43,7 +44,7 @@
         return dd + '/' + mm + '/' + yyyy
       },
       save: function () {
-        axios.post('http://quotesheet-server.azurewebsites.net/quote', this._data.newQuote)
+        axios.post(Constants.ApiBaseUrl + 'quote', this._data.newQuote)
           .then(function () {
             console.log('posted quote')
           })

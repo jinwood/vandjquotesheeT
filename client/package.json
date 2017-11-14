@@ -7,8 +7,8 @@
   "scripts": {
     "app": "npm run dev",
     "dev": "node build/dev-server.js",
-    "start": " node build/dev-server.js && node run app.js ",
-    "build": "node build/build.js",
+    "start": "cross-env NODE_ENV=dev node build/dev-server.js && node run app.js ",
+    "build": "cross-env NODE_ENV=prod node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",

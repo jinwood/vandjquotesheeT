@@ -15,6 +15,9 @@ export default {
   components: {
     Home,
     Quotes
+  },
+  mounted: function () {
+    console.log(process.env.NODE_ENV)
   }
 }
 </script>
