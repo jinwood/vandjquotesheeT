@@ -17,7 +17,7 @@ export default {
     Quotes
   },
   mounted: function () {
-    console.log(process.env.NODE_ENV)
+    console.log('running quoTesheeT on environment - ' + process.env.NODE_ENV)
   }
 }
 </script>

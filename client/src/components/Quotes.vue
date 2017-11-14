@@ -54,9 +54,8 @@ export default {
     },
     getQuotes () {
       var vm = this
-      console.log('in get quotes')
       axios
-        .get(Constants.ApiBaseUrl + '/quotes')
+        .get(Constants.ApiBaseUrl + 'quotes')
           .then(function (result) {
             console.log('in result')
             vm.quotes = result.data.quotes
