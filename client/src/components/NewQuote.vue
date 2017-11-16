@@ -2,7 +2,12 @@
   <b-card>
     <p>New Quote</p>
     <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
-    <b-button :variant="'button'" v-on:click="save">Save</b-button>
+    <b-button :variant="'button'" v-on:click="save">
+      Save
+      <div v-if="saving">
+        <img src="../assets/ajax-loader.gif"/>
+      </div>
+    </b-button>
     <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>
     <div v-for="item in newQuote.conversation" v-bind:key="item.id">
       <b-form-input placeholder="Person" v-model="item.person" />
@@ -24,7 +29,8 @@
           rating: 0,
           conversation: []
         },
-        conversationId: 0
+        conversationId: 0,
+        saving: false
       }
     },
     methods: {
@@ -44,10 +50,13 @@
         return dd + '/' + mm + '/' + yyyy
       },
       save: function () {
+        this.saving = true
         axios.post(Constants.ApiBaseUrl + 'quote', this._data.newQuote)
           .then(function () {
             console.log('posted quote')
+            this.saving = false
           })
+        this.saving = false
       }
     }
   }
