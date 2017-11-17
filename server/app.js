@@ -27,13 +27,7 @@ app.post('/quote/', function (req, res, data) {
         newQuote.id = lastId + 1;
         existingQuotes.quotes.push(newQuote);
 
-        fs.writeFile('quotes.json', JSON.stringify(existingQuotes), function (err) {
-            if (err) {
-                console.log('err');
-            } else {
-                console.log('saved a new quote');
-            }
-        });
+        saveQuotes(existingQuotes);
     })
 })
 
@@ -42,10 +36,64 @@ app.get('/quotes/', function (req, res) {
     res.json(file);
 });
 
+app.delete('/quotes', function (req, res) {
+    fs.readFile('quotes.json', 'utf8', function (err, data) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var existingQuotes = JSON.parse(data);
+
+    });
+});
+
+app.delete = function (){
+    var id = 1;
+
+    fs.readFile(__dirname + '/quotes.json', 'utf8', function (err, data) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        var existingQuotes = JSON.parse(data);
+        var quoteToDeleteIndex = getItemIndex(id, existingQuotes.quotes);
+        existingQuotes.quotes.splice(quoteToDeleteIndex ,1);
+
+        saveQuotes(existingQuotes);
+    });
+}
+
 var port = process.env.PORT === undefined ?
     3000 :
     process.env.PORT || 3000;
 
 app.listen(port, function () {
     console.log("Listining on port " + port);
+    app.delete();
 });
+
+function saveQuotes (existingQuotes) {
+    fs.writeFile('quotes.json', JSON.stringify(existingQuotes), function (err) {
+        if (err) {
+            console.log('err');
+        } else {
+            console.log('saved a new quote');
+        }
+    });
+}
+
+function searchArray (key, array) {
+    for (var i = 0; i < array.length; i++){
+        if (array[i].id === key){
+            return array[i];
+        }
+    }
+}
+
+function getItemIndex (key, array) {
+    for (var i = 0; i < array.length; i++){
+        if (array[i].id === key){
+            return i;
+        }
+    }
+}
