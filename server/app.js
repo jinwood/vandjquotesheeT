@@ -36,20 +36,7 @@ app.get('/quotes/', function (req, res) {
     res.json(file);
 });
 
-app.delete('/quotes', function (req, res) {
-    fs.readFile('quotes.json', 'utf8', function (err, data) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        var existingQuotes = JSON.parse(data);
-
-    });
-});
-
 app.delete = function (){
-    var id = 1;
-
     fs.readFile(__dirname + '/quotes.json', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
@@ -69,7 +56,6 @@ var port = process.env.PORT === undefined ?
 
 app.listen(port, function () {
     console.log("Listining on port " + port);
-    app.delete();
 });
 
 function saveQuotes (existingQuotes) {
@@ -77,7 +63,7 @@ function saveQuotes (existingQuotes) {
         if (err) {
             console.log('err');
         } else {
-            console.log('saved a new quote');
+            console.log('saving quotes');
         }
     });
 }

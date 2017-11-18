@@ -1,8 +1,8 @@
 <template>
-        <b-card v-on:mouseover="showControls != showControls">
-          <div v-if="showControls" class="col-3">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
+        <b-card v-on="{mouseover: controlSwitch,mouseout: controlSwitch}">
+          <div v-bind:class="{hide: !showControls}" class="col-3">
+            <a><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+            <a v-on:click="deleteQuote"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
           </div>
           <div class="col-3">
           </div>
@@ -20,6 +20,8 @@
 <script>
 import Conversation from '../components/Conversation'
 import Rating from '../components/Rating'
+import Constants from '../constants'
+import axios from 'axios'
 
 export default {
   name: 'QuoteItem',
@@ -28,6 +30,19 @@ export default {
   data: function () {
     return {
       showControls: false
+    }
+  },
+  methods: {
+    controlSwitch () {
+      this.showControls = !this.showControls
+    },
+    deleteQuote () {
+      var vm = this
+      axios
+        .delete(Constants.ApiBaseUrl + 'quote/' + vm.quoteData.id)
+          .then(function (result) {
+            console.log('in delete result')
+          })
     }
   }
 }
@@ -44,5 +59,11 @@ export default {
   }
   .card{
     margin-bottom: 10px;
+  }
+  .hide{
+    visibility:hidden
+  }
+  a{
+    cursor: pointer;
   }
 </style>
