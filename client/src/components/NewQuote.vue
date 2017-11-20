@@ -53,18 +53,27 @@
         return dd + '/' + mm + '/' + yyyy
       },
       save: function () {
-        this.saving = true
+        var vm = this
+        console.log('1' + vm.saving)
+        vm.saving = true
+        console.log('saving new quote to' + Constants.ApiBaseUrl + 'quote')
         axios.post(Constants.ApiBaseUrl + 'quote', this._data.newQuote)
           .then(function () {
             console.log('posted quote')
-            this.saving = false
+            vm.saving = false
+            console.log('2' + vm.saving)
+            vm.refreshFunction()
+            vm.saveMessageTimeout()
           })
-        this.refreshFunction()
-        this.saveMessageTimeout()
+          .catch(function (err) {
+            console.log(err)
+          })
       },
       saveMessageTimeout: function () {
-        setTimeout(()git  => {
-          this.saving = false
+        var vm = this
+        setTimeout(function () {
+          console.log('3' + vm.saving)
+          vm.saving = false
         }, 3000)
       }
     }
