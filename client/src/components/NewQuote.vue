@@ -3,9 +3,11 @@
     <p>New Quote</p>
     <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
     <b-button :variant="'button'" v-on:click="save">
-      Save
+      <div v-if="!saving">
+        Save
+      </div>
       <div v-if="saving">
-        <img src="../assets/ajax-loader.gif"/>
+        Saved
       </div>
     </b-button>
     <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>
@@ -22,6 +24,7 @@
 
   export default {
     name: 'NewQuote',
+    props: ['refreshFunction'],
     data: function () {
       return {
         newQuote: {
@@ -56,7 +59,13 @@
             console.log('posted quote')
             this.saving = false
           })
-        this.saving = false
+        this.refreshFunction()
+        this.saveMessageTimeout()
+      },
+      saveMessageTimeout: function () {
+        setTimeout(()git  => {
+          this.saving = false
+        }, 3000)
       }
     }
   }

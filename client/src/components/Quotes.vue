@@ -13,7 +13,7 @@
           <i class="fa fa-plus" aria-hidden="true"></i>
         </b-button>
         <div v-if="showNewQuote">
-          <NewQuote></NewQuote>
+          <NewQuote :refreshFunction="getQuotes"></NewQuote>
         </div>
         <transition-group name="list" tag="p">
           <div v-for="item in quotes" v-bind:key="item.id">
