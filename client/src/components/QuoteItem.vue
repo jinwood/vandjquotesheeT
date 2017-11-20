@@ -1,7 +1,6 @@
 <template>
         <b-card v-on="{mouseover: controlSwitch,mouseout: controlSwitch}">
           <div v-bind:class="{hide: !showControls}" class="col-3">
-            <a><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             <a v-on:click="deleteQuote"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
           </div>
           <div class="col-3">

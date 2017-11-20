@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.post('/quote/', function (req, res, data) {
     var newQuote = req.body;
 
-    fs.readFile(__dirname + '/quotes.json', 'utf8', function (err, data) {
+    fs.readFile('quotes.json', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
             return;
@@ -29,6 +29,7 @@ app.post('/quote/', function (req, res, data) {
         existingQuotes.quotes.push(newQuote);
 
         saveQuotes(JSON.stringify(existingQuotes));
+        res.send('saved new quote')
     })
 })
 
