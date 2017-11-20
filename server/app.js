@@ -40,7 +40,7 @@ app.get('/quotes/', function (req, res) {
 app.delete('/quote/:quoteId', function(req, res){
     fs.readFile(__dirname + '/quotes.json', 'utf8', function (err, data) {
         if (err) {
-            console.log(err);
+            console.log('error reading quotes ' + err);
             return;
         }
         var existingQuotes = JSON.parse(data);
@@ -64,7 +64,7 @@ app.listen(port, function () {
 function saveQuotes (existingQuotes) {
     fs.writeFile(__dirname + '/quotes.json', existingQuotes, (err) => {
         if (err) {
-            console.log('err');
+            console.log('error saving quotes' + err);
         } else {
             console.log('successfully saved quote');
         }
