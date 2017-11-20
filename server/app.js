@@ -6,6 +6,7 @@ var fs = require('fs');
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
     next();
 });
 
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 app.post('/quote/', function (req, res, data) {
     var newQuote = req.body;
 
-    fs.readFile('quotes.json', 'utf8', function (err, data) {
+    fs.readFile(__dirname + 'quotes.json', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
             return;
@@ -32,23 +33,25 @@ app.post('/quote/', function (req, res, data) {
 })
 
 app.get('/quotes/', function (req, res) {
-    var file = JSON.parse(fs.readFileSync('quotes.json', 'utf8'));
+    var file = JSON.parse(fs.readFileSync(__dirname + '/quotes.json', 'utf8'));
     res.json(file);
 });
 
-app.delete = function (){
+app.delete('/quote/:quoteId', function(req, res){
     fs.readFile(__dirname + '/quotes.json', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
             return;
         }
         var existingQuotes = JSON.parse(data);
-        var quoteToDeleteIndex = getItemIndex(id, existingQuotes.quotes);
+        var quoteToDeleteIndex = getItemIndex(req.params.quoteId, existingQuotes.quotes);
         existingQuotes.quotes.splice(quoteToDeleteIndex ,1);
 
-        saveQuotes(existingQuotes);
+        saveQuotes(JSON.stringify(existingQuotes));
+
+        res.send('deleted user')
     });
-}
+});
 
 var port = process.env.PORT === undefined ?
     3000 :
@@ -59,11 +62,11 @@ app.listen(port, function () {
 });
 
 function saveQuotes (existingQuotes) {
-    fs.writeFile('quotes.json', JSON.stringify(existingQuotes), function (err) {
+    fs.writeFile(__dirname + '/quotes.json', existingQuotes, (err) => {
         if (err) {
             console.log('err');
         } else {
-            console.log('saving quotes');
+            console.log('successfully saved quote');
         }
     });
 }
@@ -78,7 +81,7 @@ function searchArray (key, array) {
 
 function getItemIndex (key, array) {
     for (var i = 0; i < array.length; i++){
-        if (array[i].id === key){
+        if (array[i].id === parseInt(key)){
             return i;
         }
     }

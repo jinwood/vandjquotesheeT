@@ -17,7 +17,7 @@
         </div>
         <transition-group name="list" tag="p">
           <div v-for="item in quotes" v-bind:key="item.id">
-            <QuoteItem v-bind:quoteData="item">
+            <QuoteItem v-bind:quoteData="item" :refreshFunction="getQuotes">
             </QuoteItem>
           </div>
         </transition-group>
@@ -53,6 +53,7 @@ export default {
       this.showNewQuote = !this.showNewQuote
     },
     getQuotes () {
+      console.log('get quotes')
       var vm = this
       axios
         .get(Constants.ApiBaseUrl + 'quotes')

@@ -25,7 +25,7 @@ import axios from 'axios'
 
 export default {
   name: 'QuoteItem',
-  props: ['quoteData'],
+  props: ['quoteData', 'refreshFunction'],
   components: {Conversation: Conversation, Rating: Rating},
   data: function () {
     return {
@@ -42,6 +42,7 @@ export default {
         .delete(Constants.ApiBaseUrl + 'quote/' + vm.quoteData.id)
           .then(function (result) {
             console.log('in delete result')
+            vm.refreshFunction()
           })
     }
   }
