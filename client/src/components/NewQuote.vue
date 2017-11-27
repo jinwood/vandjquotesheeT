@@ -26,15 +26,7 @@
     name: 'NewQuote',
     props: ['refreshFunction'],
     data: function () {
-      return {
-        newQuote: {
-          date: this.getDate(),
-          rating: 0,
-          conversation: []
-        },
-        conversationId: 0,
-        saving: false
-      }
+      return setState()
     },
     methods: {
       addConversation: function () {
@@ -44,13 +36,6 @@
           id: this.conversationId + 1
         })
         this.conversationId += 1
-      },
-      getDate: function () {
-        var today = new Date()
-        var dd = today.getDate()
-        var mm = today.getMonth() + 1
-        var yyyy = today.getFullYear()
-        return dd + '/' + mm + '/' + yyyy
       },
       save: function () {
         var vm = this
@@ -64,6 +49,7 @@
             console.log('2' + vm.saving)
             vm.refreshFunction()
             vm.saveMessageTimeout()
+git             Object.assign(vm.$data, setState())
           })
           .catch(function (err) {
             console.log(err)
@@ -77,6 +63,25 @@
         }, 3000)
       }
     }
+  }
+
+  function setState () {
+    return {
+      newQuote: {
+        date: getDate(),
+        rating: 0,
+        conversation: []
+      },
+      conversationId: 0,
+      saving: false
+    }
+  }
+  function getDate () {
+    var today = new Date()
+    var dd = today.getDate()
+    var mm = today.getMonth() + 1
+    var yyyy = today.getFullYear()
+    return dd + '/' + mm + '/' + yyyy
   }
 </script>
 
