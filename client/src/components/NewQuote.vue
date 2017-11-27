@@ -49,7 +49,7 @@
             console.log('2' + vm.saving)
             vm.refreshFunction()
             vm.saveMessageTimeout()
-git             Object.assign(vm.$data, setState())
+            Object.assign(vm.$data, setState())
           })
           .catch(function (err) {
             console.log(err)
