@@ -8,11 +8,11 @@
           <div class="col-3">
           </div>
           <div class="col-12 conversation">
-            <Conversation v-bind:conversation="quoteData.conversation">
+            <Conversation v-bind:conversation="quoteData.detail">
             </Conversation>
           </div>
           <hr>
-          <div class="rating">Rating&nbsp;<Rating v-bind:rating="quoteData.rating"></Rating></div>
+          <div class="rating">Rating&nbsp;<Rating v-bind:rating="parseInt(quoteData.rating)"></Rating></div>
         </b-card>
 </template>
 
