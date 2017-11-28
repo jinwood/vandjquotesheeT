@@ -1,7 +1,9 @@
 <template>
   <b-card>
     <p>New Quote</p>
-    <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
+    <b-button :variant="'button'" 
+              v-on:click="startNewDetail"
+              v-bind:disabled="addingDetail">Add detail</b-button>
     <b-button :variant="'button'" v-on:click="save">
       <div v-if="!saving">
         Save
@@ -10,11 +12,24 @@
         Saved
       </div>
     </b-button>
-    <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>
-    <div v-for="item in newQuote.conversation" v-bind:key="item.id">
-      <b-form-input placeholder="Person" v-model="item.person" />
-      <b-form-input placeholder="They said..." v-model="item.text" />
+
+    <b-form-group id="ChooseDetailType" 
+        label="Choose the type of detail">
+        <b-form-select v-model="currentDetailType" 
+                       :options="detailTypes" 
+                       class="mb-3">
+        </b-form-select>
+    </b-form-group>
+
+    <div v-if="detailTypeChosen">
+      <div v-for="item in newQuote.detail" v-bind:key="item.id">
+        <b-form-input placeholder="Person" v-model="item.person" />
+        <b-form-input placeholder="They said..." v-model="item.text" />
+      </div>
     </div>
+    <b-form-group label="Raiting">
+      <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>    
+    </b-form-group>
   </b-card>
 </template>
 
@@ -26,16 +41,27 @@
     name: 'NewQuote',
     props: ['refreshFunction'],
     data: function () {
-      return setState()
+      return setState(Constants)
+    },
+    watch: {
+      currentDetailType: function (value) {
+        this.currentDetail.detailType = value
+        this.detailTypeChosen = true
+      }
     },
     methods: {
-      addConversation: function () {
-        this._data.newQuote.conversation.push({
+      startNewDetail: function () {
+        this.currentDetail = { detailType: '' }
+        this._data.newQuote.detail.push(this.currentDetail)
+        this.detailId += 1
+      },
+      addDetail: function () {
+        this._data.newQuote.detail.push({
           person: '',
           text: '',
-          id: this.conversationId + 1
+          id: this.detailId + 1
         })
-        this.conversationId += 1
+        this.detailId += 1
       },
       save: function () {
         var vm = this
@@ -50,6 +76,7 @@
             vm.refreshFunction()
             vm.saveMessageTimeout()
             Object.assign(vm.$data, setState())
+            this.addingDetail = false
           })
           .catch(function (err) {
             console.log(err)
@@ -65,14 +92,19 @@
     }
   }
 
-  function setState () {
+  function setState (constants) {
     return {
       newQuote: {
         date: getDate(),
         rating: 0,
-        conversation: []
+        detail: []
       },
-      conversationId: 0,
+      addingDetail: true,
+      currentDetail: {},
+      currentDetailType: '',
+      detailId: 0,
+      detailTypes: constants.QuoteSettings.DetailTypes,
+      detailTypeChosen: false,
       saving: false
     }
   }
