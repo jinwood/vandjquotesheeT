@@ -1,20 +1,46 @@
 <template>
   <b-card>
     <p>New Quote</p>
-    <b-button :variant="'link'" v-on:click="addConversation">+</b-button>
-    <b-button :variant="'button'" v-on:click="save">
+    <b-button :variant="'button'" 
+              v-on:click="startNewDetail"
+              v-bind:disabled="addingDetail">Add detail</b-button>
+    <b-button :variant="'button'" v-on:click="saveQuote">
       <div v-if="!saving">
-        Save
+        Save Quote
       </div>
       <div v-if="saving">
-        Saved
+        Saved Quote
       </div>
     </b-button>
-    <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>
-    <div v-for="item in newQuote.conversation" v-bind:key="item.id">
-      <b-form-input placeholder="Person" v-model="item.person" />
-      <b-form-input placeholder="They said..." v-model="item.text" />
+    <b-form-group label="Raiting">
+      <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>    
+    </b-form-group>
+    <b-form-group id="ChooseDetailType" 
+        label="Choose the type of detail">
+        <b-form-select v-model="currentDetailType" 
+                       :options="detailTypes" 
+                       class="mb-3">
+        </b-form-select>
+    </b-form-group>
+
+    <div v-if="detailTypeChosen">
+      <div v-if="currentDetailType === 'action'">
+        <b-form-input placeholder="Description" v-model="currentDetail.description" />
+      </div>
+      <div v-if="currentDetailType === 'conversation'">
+        <b-form-input placeholder="Person" v-model="currentDetail.person" />
+        <b-form-input placeholder="They said..." v-model="currentDetail.text" />
+      </div>
     </div>
+    <div v-for="detail in newQuote.detail">
+      <div v-if="detail.detailType === 'conversation'">
+        <p><strong>{{detail.person}}:</strong> {{detail.text}}</p>
+      </div>
+      <div v-if="detail.detailType === 'action'">
+        <p><em>{{detail.description}}</em></p>
+      </div>
+    </div>
+    <b-button :variant="'button'" v-on:click="saveDetail">Save Detail</b-button>
   </b-card>
 </template>
 
@@ -26,18 +52,49 @@
     name: 'NewQuote',
     props: ['refreshFunction'],
     data: function () {
-      return setState()
+      return setState(Constants)
+    },
+    watch: {
+      currentDetailType: function (value) {
+        this.currentDetail.detailType = value
+        this.detailTypeChosen = true
+        this.addDetail(value)
+      }
     },
     methods: {
-      addConversation: function () {
-        this._data.newQuote.conversation.push({
-          person: '',
-          text: '',
-          id: this.conversationId + 1
-        })
-        this.conversationId += 1
+      startNewDetail: function () {
+        this.currentDetail = { detailType: '' }
+        this._data.newQuote.detail.push(this.currentDetail)
+        this.detailId += 1
       },
-      save: function () {
+      addDetail: function (detailType) {
+        var detail = {}
+        switch (detailType) {
+          case 'action':
+            detail = {
+              detailType: 'action',
+              description: '',
+              id: this.detailId + 1
+            }
+            break
+          case 'conversation':
+            detail = {
+              detailType: 'conversation',
+              person: '',
+              text: '',
+              id: this.detailId + 1
+            }
+        }
+        this.currentDetail = detail
+        this.detailId += 1
+      },
+      saveDetail: function () {
+        this.newQuote.detail.push(this.currentDetail)
+        this.currentDetail = {}
+        this.currentDetailType = ''
+        this.addingDetail = false
+      },
+      saveQuote: function () {
         var vm = this
         console.log('1' + vm.saving)
         vm.saving = true
@@ -50,6 +107,7 @@
             vm.refreshFunction()
             vm.saveMessageTimeout()
             Object.assign(vm.$data, setState())
+            this.addingDetail = false
           })
           .catch(function (err) {
             console.log(err)
@@ -65,14 +123,19 @@
     }
   }
 
-  function setState () {
+  function setState (constants) {
     return {
       newQuote: {
         date: getDate(),
         rating: 0,
-        conversation: []
+        detail: []
       },
-      conversationId: 0,
+      addingDetail: true,
+      currentDetail: {},
+      currentDetailType: '',
+      detailId: 0,
+      detailTypes: constants.QuoteSettings.DetailTypes,
+      detailTypeChosen: false,
       saving: false
     }
   }
