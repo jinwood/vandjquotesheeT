@@ -12,7 +12,9 @@
         Saved Quote
       </div>
     </b-button>
-
+    <b-form-group label="Raiting">
+      <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>    
+    </b-form-group>
     <b-form-group id="ChooseDetailType" 
         label="Choose the type of detail">
         <b-form-select v-model="currentDetailType" 
@@ -30,9 +32,14 @@
         <b-form-input placeholder="They said..." v-model="currentDetail.text" />
       </div>
     </div>
-    <b-form-group label="Raiting">
-      <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>    
-    </b-form-group>
+    <div v-for="detail in newQuote.detail">
+      <div v-if="detail.detailType === 'conversation'">
+        <p><strong>{{detail.person}}:</strong> {{detail.text}}</p>
+      </div>
+      <div v-if="detail.detailType === 'action'">
+        <p><em>{{detail.description}}</em></p>
+      </div>
+    </div>
     <b-button :variant="'button'" v-on:click="saveDetail">Save Detail</b-button>
   </b-card>
 </template>
