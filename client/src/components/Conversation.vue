@@ -2,10 +2,10 @@
   <div>
     <div v-for="item in conversation" v-bind:key="item.id">
       <div v-if="item.detailType === 'conversation'">
-        <p>{{item.person}} - {{item.text}}</p>
+        <p><strong>{{item.person}}:</strong> {{item.text}}</p>
       </div>
       <div v-if="item.detailType === 'action'">
-        <p>{{item.description}}</p>
+        <p><em>{{item.description}}</em></p>
       </div>
     </div>
   </div>
