@@ -23,7 +23,7 @@
 
     <div v-if="detailTypeChosen">
       <div v-if="currentDetailType === 'action'">
-        
+        <b-form-input placeholder="Description" v-model="currentDetail.description" />
       </div>
       <div v-if="currentDetailType === 'conversation'">
         <b-form-input placeholder="Person" v-model="currentDetail.person" />
