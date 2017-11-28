@@ -4,12 +4,12 @@
     <b-button :variant="'button'" 
               v-on:click="startNewDetail"
               v-bind:disabled="addingDetail">Add detail</b-button>
-    <b-button :variant="'button'" v-on:click="save">
+    <b-button :variant="'button'" v-on:click="saveQuote">
       <div v-if="!saving">
-        Save
+        Save Quote
       </div>
       <div v-if="saving">
-        Saved
+        Saved Quote
       </div>
     </b-button>
 
@@ -22,14 +22,18 @@
     </b-form-group>
 
     <div v-if="detailTypeChosen">
-      <div v-for="item in newQuote.detail" v-bind:key="item.id">
-        <b-form-input placeholder="Person" v-model="item.person" />
-        <b-form-input placeholder="They said..." v-model="item.text" />
+      <div v-if="currentDetailType === 'action'">
+        
+      </div>
+      <div v-if="currentDetailType === 'conversation'">
+        <b-form-input placeholder="Person" v-model="currentDetail.person" />
+        <b-form-input placeholder="They said..." v-model="currentDetail.text" />
       </div>
     </div>
     <b-form-group label="Raiting">
       <b-form-input class="rating-input" placeholder="0" type="number" v-model="newQuote.rating"/>    
     </b-form-group>
+    <b-button :variant="'button'" v-on:click="saveDetail">Save Detail</b-button>
   </b-card>
 </template>
 
@@ -47,6 +51,7 @@
       currentDetailType: function (value) {
         this.currentDetail.detailType = value
         this.detailTypeChosen = true
+        this.addDetail(value)
       }
     },
     methods: {
@@ -55,15 +60,34 @@
         this._data.newQuote.detail.push(this.currentDetail)
         this.detailId += 1
       },
-      addDetail: function () {
-        this._data.newQuote.detail.push({
-          person: '',
-          text: '',
-          id: this.detailId + 1
-        })
+      addDetail: function (detailType) {
+        var detail = {}
+        switch (detailType) {
+          case 'action':
+            detail = {
+              detailType: 'action',
+              description: '',
+              id: this.detailId + 1
+            }
+            break
+          case 'conversation':
+            detail = {
+              detailType: 'conversation',
+              person: '',
+              text: '',
+              id: this.detailId + 1
+            }
+        }
+        this.currentDetail = detail
         this.detailId += 1
       },
-      save: function () {
+      saveDetail: function () {
+        this.newQuote.detail.push(this.currentDetail)
+        this.currentDetail = {}
+        this.currentDetailType = ''
+        this.addingDetail = false
+      },
+      saveQuote: function () {
         var vm = this
         console.log('1' + vm.saving)
         vm.saving = true
