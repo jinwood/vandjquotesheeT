@@ -1,9 +1,9 @@
 <template>
         <b-card v-on="{mouseover: controlSwitch,mouseout: controlSwitch}">
-          <div v-bind:class="{hide: !showControls}" class="col-3">
-            <a v-on:click="deleteQuote"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-          </div>
           <div class="col-3">
+            <div v-bind:class="{hide: !showControls}" class="col-3">
+              <a v-on:click="deleteQuote"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+            </div>
           </div>
           <div class="col-3">
           </div>
@@ -50,7 +50,6 @@ export default {
 
 <style scoped>
   .conversation{
-    margin-top: 15px;
   }
   .rating{
     display: inline-block;
