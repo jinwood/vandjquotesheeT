@@ -1,6 +1,6 @@
 <template>
   <b-container id="app">
-    <img src="./assets/logo.png">
+    <img src="./assets/quotesheet-logo.png">
     <home/>
     <quotes/>
   </b-container>

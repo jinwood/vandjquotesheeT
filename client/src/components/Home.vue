@@ -1,9 +1,7 @@
 <template>
-  <b-row class="">
+  <b-row class="home">
     <b-col></b-col>
     <b-col>
-      <h1>V & J</h1>
-      <h1>Quote SheeT</h1>
     </b-col>
     <b-col></b-col>
   </b-row>
@@ -17,6 +15,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.home{
+  margin-top: 80px;
+}
 h1, h2 {
   font-weight: normal;
 }
