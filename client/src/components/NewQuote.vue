@@ -89,6 +89,13 @@
         this.detailId += 1
       },
       saveDetail: function () {
+        if (this.currentDetailType === 'conversation') {
+          if (this.currentDetail.person.includes('v')) {
+            this.currentDetail.person = this.currentDetail.person.replace('v', 'Sausage Bum')
+          } else if (this.currentDetail.person.includes('V')) {
+            this.currentDetail.person = this.currentDetail.person.replace('V', 'Sausage Bum')
+          }
+        }
         this.newQuote.detail.push(this.currentDetail)
         this.currentDetail = {}
         this.currentDetailType = ''
