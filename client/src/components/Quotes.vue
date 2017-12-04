@@ -9,9 +9,14 @@
     <b-row class="text-center">
       <b-col md="3" lg="4"></b-col>
       <b-col order-sm="" md="6" lg="4">
-        <b-button :variant="'link'" v-on:click="revealAddQuote">
-          <i class="fa fa-plus" aria-hidden="true"></i>
-        </b-button>
+        <div v-if="!loading">
+          <b-button :variant="'link'" v-on:click="revealAddQuote">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </b-button>
+        </div>
+        <div v-if="loading">
+          <img src="../assets/ajax-loader.gif" />
+        </div>
         <div v-if="showNewQuote">
           <NewQuote :refreshFunction="getQuotes"></NewQuote>
         </div>
@@ -42,7 +47,8 @@ export default {
   data: function () {
     return {
       quotes: [],
-      showNewQuote: false
+      showNewQuote: false,
+      loading: true
     }
   },
   created: function () {
@@ -59,6 +65,7 @@ export default {
         .get(Constants.ApiBaseUrl + 'quotes')
           .then(function (result) {
             console.log('in result')
+            vm.loading = false
             vm.quotes = result.data.quotes
           })
     }

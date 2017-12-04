@@ -4,7 +4,7 @@
     <b-button :variant="'button'" 
               v-on:click="startNewDetail"
               v-bind:disabled="addingDetail">Add detail</b-button>
-    <b-button :variant="'button'" v-on:click="saveQuote">
+    <b-button :variant="'button'" v-on:click="saveQuote" v-bind:disabled="saving">
       <div v-if="!saving">
         Save Quote
       </div>
@@ -113,7 +113,7 @@
             console.log('2' + vm.saving)
             vm.refreshFunction()
             vm.saveMessageTimeout()
-            Object.assign(vm.$data, setState())
+            Object.assign(vm.data, setState())
             this.addingDetail = false
           })
           .catch(function (err) {
