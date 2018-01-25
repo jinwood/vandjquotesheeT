@@ -1,5 +1,5 @@
 module.exports = {
-  ApiBaseUrl: 'http://localhost:3000/'
+  ApiBaseUrl: 'http://localhost:3000/',
   QuoteSettings: {
     DetailTypes: [
       'conversation',
