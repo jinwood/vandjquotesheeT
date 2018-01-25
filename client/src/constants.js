@@ -1,7 +1,5 @@
 module.exports = {
-  ApiBaseUrl: process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/'
-    : 'http://quotesheet-server.azurewebsites.net/',
+  ApiBaseUrl: 'http://localhost:3000/'
   QuoteSettings: {
     DetailTypes: [
       'conversation',
