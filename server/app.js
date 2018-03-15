@@ -14,9 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/quote/', function (req, res, data) {
+    console.log('in new quote');
     var newQuote = req.body;
-
-    //need to do something here if there's no quotes file.
 
     fs.readFile('quotes.json', 'utf8', function (err, data) {
         if (err) {
@@ -36,11 +35,25 @@ app.post('/quote/', function (req, res, data) {
 })
 
 app.get('/quotes/', function (req, res) {
-    var file = JSON.parse(fs.readFileSync(__dirname + '/quotes.json', 'utf8'));
-    res.json(file);
+    console.log('in get quotes');
+    var path = __dirname + '/quotes.json';
+
+    if(fs.exists(path)){
+        var file = JSON.parse(fs.readFileSync(path, 'utf8'));
+        if(!file){
+            console.log('didn\'t find a file');
+        }
+        res.json(file);
+    } else{
+        console.log('there aint no file');
+        var jsonData = { "quotes": []};
+        fs.writeFile(path, jsonData, function(err){});
+    }
+
 });
 
 app.delete('/quote/:quoteId', function(req, res){
+    console.log('in delete quote');
     fs.readFile(__dirname + '/quotes.json', 'utf8', function (err, data) {
         if (err) {
             console.log('error reading quotes ' + err);
