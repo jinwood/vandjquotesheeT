@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 app.post('/quote/', function (req, res, data) {
     var newQuote = req.body;
 
+    //need to do something here if there's no quotes file.
+
     fs.readFile('quotes.json', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
