@@ -68,6 +68,9 @@ export default {
             vm.loading = false
             vm.quotes = result.data.quotes
           })
+          .catch(function (err) {
+            console.log('errror when getting quotes:' + err)
+          })
     }
   }
 }

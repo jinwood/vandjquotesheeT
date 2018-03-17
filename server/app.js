@@ -36,20 +36,21 @@ app.post('/quote/', function (req, res, data) {
 
 app.get('/quotes/', function (req, res) {
     console.log('in get quotes');
-    var path = __dirname + '/quotes.json';
+    var path = __dirname + '\\quotes.json';
 
-    if(fs.exists(path)){
-        var file = JSON.parse(fs.readFileSync(path, 'utf8'));
-        if(!file){
-            console.log('didn\'t find a file');
+    fs.exists(path, (exists) => {
+        console.log(exists ? 'quotes found' : 'quotes not found')
+        if(exists) {
+            var file = JSON.parse(fs.readFileSync(path, 'utf8'));
+            if(!file){
+                console.log('didn\'t find a file');
+            }
+            res.json(file);
+        } else {
+            var jsonData = { "quotes": []};
+            fs.writeFile(path, json.stringify(jsonData), function(err){});    
         }
-        res.json(file);
-    } else{
-        console.log('there aint no file');
-        var jsonData = { "quotes": []};
-        fs.writeFile(path, jsonData, function(err){});
-    }
-
+    });
 });
 
 app.delete('/quote/:quoteId', function(req, res){
