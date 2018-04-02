@@ -48,7 +48,7 @@ app.get('/quotes/', function (req, res) {
             res.json(file);
         } else {
             var jsonData = { "quotes": []};
-            fs.writeFile(path, json.stringify(jsonData), function(err){});    
+            fs.writeFile(path, JSON.stringify(jsonData), function(err){});    
         }
     });
 });
