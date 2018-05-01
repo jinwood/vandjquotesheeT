@@ -5,4 +5,4 @@ sudo npm run build
 if [ ! -d "$dist" ]; then
   echo "/dist not found. Exiting."
   fi
-scp -r dist/ zyfygi@159.65.27.79:~/vandjquotesheet/client/
+scp -r dist/ zyfygi@159.65.27.79:~/var/www/veeandj/client
